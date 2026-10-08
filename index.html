@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#091427">
-<title>MERGE Cube · Visor AR de aula (detector integrado)</title>
+<title>MERGE Cube · Visor AR de aula (ciencias 1º ESO)</title>
 <style>
 :root{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color-scheme:dark;--bg:#091427;--panel:#13233a;--line:#344864;--accent:#73e8d1;--ink:#f3faff;--muted:#b9cadd}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink)}button,select{font:inherit}button{cursor:pointer;touch-action:manipulation}button:disabled{opacity:.5;cursor:wait}header{position:relative;z-index:4;padding:13px clamp(14px,3vw,28px);display:flex;align-items:center;justify-content:space-between;gap:9px;background:#0b1a2c}header h1{font-size:1.13rem;margin:0;letter-spacing:-.03em}header .sub{font-size:.72rem;color:var(--muted)}.chip{border:1px solid #3b6774;border-radius:99px;padding:5px 8px;font-size:.68rem;font-weight:700;color:#b2f6e8;white-space:nowrap}.viewer{position:relative;height:min(73dvh,780px);min-height:320px;overflow:hidden;background:radial-gradient(circle at 50% 37%,#1b3850,#080e19 78%);isolation:isolate}#camera,#arCanvas{position:absolute;inset:0;width:100%;height:100%;display:block}#camera{object-fit:cover;visibility:hidden}#arCanvas{pointer-events:none;z-index:2}.placeholder{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:13px;text-align:center;padding:30px;color:#c7d8e9}.placeholder svg{width:82px;max-width:25vw;fill:none;stroke:#83afbe;stroke-width:1.4}.placeholder strong{font-size:1.2rem}.placeholder span{max-width:330px;font-size:.85rem;color:#a9bccd}.hud{position:absolute;inset:0;z-index:3;pointer-events:none}.hudTop{position:absolute;top:14px;left:12px;right:12px;display:flex;justify-content:center;gap:7px}.status{padding:7px 12px;background:#081728e8;border:1px solid #536d88;border-radius:25px;color:#dfefff;font-size:.78rem;font-weight:720;box-shadow:0 2px 8px #0003}.status.found{color:#abffdc;border-color:#51b987;background:#0d3029ee}.reticle{position:absolute;left:50%;top:50%;width:min(55vw,32vh,280px);height:min(55vw,32vh,280px);transform:translate(-50%,-50%);opacity:.6;display:none}.reticle.visible{display:block}.reticle::before,.reticle::after,.reticle i::before,.reticle i::after{content:"";display:block;position:absolute;width:22px;height:22px;border-color:var(--accent);border-style:solid}.reticle::before{top:0;left:0;border-width:3px 0 0 3px;border-radius:4px 0 0 0}.reticle::after{top:0;right:0;border-width:3px 3px 0 0;border-radius:0 4px 0 0}.reticle i::before{bottom:0;left:0;border-width:0 0 3px 3px;border-radius:0 0 0 4px}.reticle i::after{bottom:0;right:0;border-width:0 3px 3px 0;border-radius:0 0 4px 0}.camFoot{position:absolute;bottom:12px;left:12px;right:12px;color:#e7f3fc;text-align:center;font-size:.75rem;text-shadow:0 1px 6px #000;background:#0615258a;border-radius:10px;padding:7px}.panel{max-width:1050px;margin:auto;padding:15px 15px 26px}.controls{display:flex;flex-wrap:wrap;gap:9px;align-items:center}.btn{background:#203953;border:1px solid #53728e;color:white;border-radius:11px;padding:12px 17px;min-height:47px;font-weight:760;flex:1 1 160px}.btn.primary{background:var(--accent);border-color:var(--accent);color:#042c31}.btn:focus-visible,select:focus-visible{outline:3px solid #ffdb74;outline-offset:3px}.controlModel{margin:12px 0 0;display:flex;align-items:center;gap:9px;flex-wrap:wrap;font-size:.86rem}.controlModel select{flex:1;min-width:165px;background:#11283f;color:white;border:1px solid #55708d;padding:10px;border-radius:9px;min-height:43px}.message{margin:13px 0 0;min-height:43px;background:#0e1e32;border-left:3px solid #7ae9d1;padding:10px 12px;border-radius:0 8px 8px 0;font-size:.86rem;line-height:1.45}.message.error{border-color:#ff8e90;color:#ffd8dc}.help{color:var(--muted);line-height:1.5;font-size:.82rem;margin:12px 0 0}details{border-top:1px solid var(--line);margin-top:15px;padding-top:13px;font-size:.8rem;color:#b9cde2}details summary{cursor:pointer;color:#def5f9;font-weight:700}details p{line-height:1.5}a{color:#97f6e3}footer{font-size:.73rem;color:#91a5bc;margin-top:15px}@media(min-width:900px){.viewer{height:min(69vh,780px)}header h1{font-size:1.4rem}}@media(max-height:660px){.viewer{height:58dvh;min-height:260px}.panel{padding-top:10px}.btn{padding:9px 13px;min-height:39px}}@media(prefers-reduced-motion:reduce){*{animation:none!important}}
 </style>
 </head>
 <body>
-<header><div><h1>MERGE Cube · Visor AR</h1><div class="sub">Modo cámara en directo · aula</div></div><span class="chip">V2 · SIN OPENCV</span></header>
+<header><div><h1>MERGE Cube · Visor AR</h1><div class="sub">Modo cámara en directo · aula</div></div><span class="chip">V3 · CIENCIAS</span></header>
 <main>
 <section class="viewer" id="viewer" aria-label="Vista de la cámara con objeto tridimensional">
  <video id="camera" playsinline muted autoplay></video>
@@ -21,8 +21,8 @@
 </section>
 <section class="panel">
 <div class="controls"><button id="start" class="btn primary" type="button">◉ Iniciar cámara</button><button id="flip" class="btn" type="button" disabled>↻ Cambiar cámara</button><button id="stop" class="btn" type="button" disabled>■ Detener</button></div>
-<div class="controlModel"><label for="model">Objeto en 3D:</label><select id="model"><option value="earth">🌍 Planeta Tierra</option><option value="atom">⚛️ Átomo</option><option value="cube">🧊 Cubo de colores</option><option value="solar">☀️ Sistema solar</option></select></div>
-<p id="message" class="message" role="status">Versión 2: detector integrado sin OpenCV.js. Para abrir la cámara, visita esta página por HTTPS (GitHub Pages) y acepta el permiso cuando Chrome lo solicite.</p>
+<div class="controlModel"><label for="model">Objeto en 3D:</label><select id="model"><option value="solar">☀️ Sistema solar</option><option value="earthLayers">🌍 Tierra por dentro</option></select></div>
+<p id="message" class="message" role="status">Versión 3: visor didáctico para 1º ESO. Elige entre «Sistema solar» y «Tierra por dentro». Para abrir la cámara, visita esta página por HTTPS (GitHub Pages) y acepta el permiso cuando Chrome lo solicite.</p>
 <p class="help"><strong>Para el aula:</strong> publica este archivo con el nombre <code>index.html</code> en GitHub Pages. Los alumnos podrán acceder mediante el mismo enlace o QR. No necesitan instalar nada; sí conceder permiso de cámara cuando Chrome lo pida.</p>
 <details><summary>¿Qué puede hacer exactamente esta versión?</summary><p>Intenta identificar la silueta oscura del cubo sobre un fondo claro y superponer un modelo tridimensional. El seguimiento es aproximado y <strong>no identifica los seis símbolos oficiales de MERGE</strong>; podría confundir otra superficie cuadrada y perder la posición al girar el cubo. No es el sistema de seguimiento oficial de MERGE, no garantiza una posición 3D correcta en todos los giros y no se ha validado aún con los móviles del aula. Para una experiencia de seguimiento MERGE consolidada, utiliza la <a href="https://merge3d.ai/merge-cube" target="_blank" rel="noopener">plataforma oficial</a>.</p></details>
 <footer>Funciona en el dispositivo: no envía imágenes a servidores. El detector visual está incluido. El motor de dibujo 3D se carga por Internet. No afiliado a MERGE.</footer>
@@ -70,12 +70,130 @@ async function loadThree(){
 }
 function setup3D(){renderer=new THREE.WebGLRenderer({alpha:true,antialias:true,powerPreference:'low-power'});renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));renderer.domElement.id='arCanvas';renderer.domElement.setAttribute('aria-hidden','true');viewer.appendChild(renderer.domElement);scene=new THREE.Scene();camera=new THREE.PerspectiveCamera(55,1,.02,100);anchor=new THREE.Group();anchor.visible=false;scene.add(anchor);meshRoot=new THREE.Group();anchor.add(meshRoot);scene.add(new THREE.AmbientLight(0xffffff,1.5));const sun=new THREE.DirectionalLight(0xffffff,2.1);sun.position.set(-2,3,5);scene.add(sun);buildModel(modelSel.value);updateDimensions();}
 function sphere(radius,color,x,y,z){const o=new THREE.Mesh(new THREE.SphereGeometry(radius,24,16),new THREE.MeshStandardMaterial({color,metalness:.1,roughness:.5}));o.position.set(x,y,z);return o}
-function buildModel(name){if(!meshRoot)return;while(meshRoot.children.length){const o=meshRoot.children[0];meshRoot.remove(o);o.traverse(c=>{if(c.geometry)c.geometry.dispose();if(c.material){const mats=Array.isArray(c.material)?c.material:[c.material];mats.forEach(m=>m.dispose())}})}activeModel=name;const g=meshRoot;
-// La cara está en z=0; el volumen crece hacia la cámara (z negativo).
-if(name==='earth') {const earth=sphere(.55,0x1d81dc,0,0,-.55);g.add(earth);const sea=new THREE.MeshStandardMaterial({color:0x38b86a,roughness:.95,side:THREE.DoubleSide});for(let i=0;i<8;i++){const phi=i*2.4,theta=.55+(i%4)*.57;const size=.12+(i%3)*.04;const land=new THREE.Mesh(new THREE.IcosahedronGeometry(size,0),sea);land.position.set(Math.sin(theta)*Math.cos(phi)*.53,Math.cos(theta)*.53,Math.sin(theta)*Math.sin(phi)*.53);land.scale.set(1.4,.6,1);earth.add(land)}const halo=new THREE.Mesh(new THREE.TorusGeometry(.64,.018,8,64),new THREE.MeshBasicMaterial({color:0x83deff,transparent:true,opacity:.7}));halo.position.z=-.55;g.add(halo)}
-else if(name==='atom'){g.add(sphere(.16,0xffd36b,0,0,-.52));for(let i=0;i<3;i++){const ring=new THREE.Mesh(new THREE.TorusGeometry(.60,.013,7,72),new THREE.MeshBasicMaterial({color:[0x7ce8ff,0xffb8d2,0xc4a4ff][i]}));ring.position.z=-.52;ring.rotation.set(i*1.05, i*1.14, i*.39);g.add(ring);const e=sphere(.065,0xebf7ff,Math.cos(i*2.1)*.59,Math.sin(i*2.1)*.59,-.52);g.add(e)}}
-else if(name==='cube'){const box=new THREE.Mesh(new THREE.BoxGeometry(.92,.92,.92),[0x35d7b6,0x8665ee,0x31a5ed,0xec976c,0x475cce,0xc5b65d].map(c=>new THREE.MeshStandardMaterial({color:c,transparent:true,opacity:.85,side:THREE.DoubleSide})));box.position.z=-.55;g.add(box);const edges=new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.BoxGeometry(.92,.92,.92)),new THREE.LineBasicMaterial({color:0xdffefa}));edges.position.z=-.55;g.add(edges)}
-else {g.add(sphere(.23,0xffd065,0,0,-.55));for(let i=0;i<3;i++){const r=.42+i*.19;const orbit=new THREE.Mesh(new THREE.TorusGeometry(r,.008,5,70),new THREE.MeshBasicMaterial({color:0xabc2e8,transparent:true,opacity:.7}));orbit.position.z=-.55;orbit.rotation.x=.3;g.add(orbit);const p=sphere([.065,.095,.082][i],[0x88dfff,0xef9a64,0x9c9dff][i],r,0,-.55);p.userData.orbitRadius=r;p.userData.orbitSpeed=.8/(i+1);g.add(p)}}
+function buildModel(name){
+ if(!meshRoot)return;
+ while(meshRoot.children.length){
+  const o=meshRoot.children[0];
+  meshRoot.remove(o);
+  o.traverse(c=>{if(c.geometry)c.geometry.dispose();if(c.material){const mats=Array.isArray(c.material)?c.material:[c.material];mats.forEach(m=>m.dispose())}})
+ }
+ activeModel=name;
+ const g=meshRoot;
+ const z=-.58;
+ const makeSphere=(r,color,x,y,zz,extra={})=>{
+   const mat=new THREE.MeshStandardMaterial(Object.assign({color,roughness:.95,metalness:.02},extra));
+   const mesh=new THREE.Mesh(new THREE.SphereGeometry(r,48,32),mat);
+   mesh.position.set(x,y,zz);
+   return mesh;
+ };
+ const addLabelSprite=(txt,x,y,zz,scale=0.34)=>{
+   const c=document.createElement('canvas'); c.width=512; c.height=160;
+   const ctx=c.getContext('2d');
+   ctx.fillStyle='rgba(7,18,35,0.75)';
+   ctx.strokeStyle='rgba(173,232,255,0.9)';
+   ctx.lineWidth=6;
+   const rr=(x,y,w,h,r)=>{ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();};
+   rr(10,10,492,140,28); ctx.fill(); ctx.stroke();
+   ctx.fillStyle='#f5fbff'; ctx.font='bold 60px Arial'; ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillText(txt,256,80);
+   const tex=new THREE.CanvasTexture(c); tex.needsUpdate=true;
+   const material=new THREE.SpriteMaterial({map:tex,transparent:true,depthTest:false,depthWrite:false});
+   const sprite=new THREE.Sprite(material); sprite.position.set(x,y,zz); sprite.scale.set(scale*2.8,scale*.88,1); g.add(sprite); return sprite;
+ };
+ 
+ if(name==='earthLayers'){
+   const group=new THREE.Group();
+   const phiStart=Math.PI*0.08, phiLength=Math.PI*1.42;
+   const outer=new THREE.Mesh(new THREE.SphereGeometry(.66,64,40,phiStart,phiLength,0,Math.PI), new THREE.MeshStandardMaterial({color:0x347bd8,roughness:.82,metalness:.03,transparent:true,opacity:.96}));
+   outer.position.z=z;
+   group.add(outer);
+   const crustLine=new THREE.Mesh(new THREE.TorusGeometry(.665,.008,10,90), new THREE.MeshBasicMaterial({color:0x96dfff,transparent:true,opacity:.75}));
+   crustLine.position.set(0,0,z); crustLine.rotation.y=Math.PI/2; group.add(crustLine);
+   const mantle=new THREE.Mesh(new THREE.SphereGeometry(.52,56,36,phiStart,phiLength,0,Math.PI), new THREE.MeshStandardMaterial({color:0xf08b3e,roughness:.88,metalness:.02}));
+   mantle.position.z=z; group.add(mantle);
+   const outerCore=new THREE.Mesh(new THREE.SphereGeometry(.34,56,36,phiStart,phiLength,0,Math.PI), new THREE.MeshStandardMaterial({color:0xf4d35e,roughness:.7,emissive:0x5a3300,emissiveIntensity:.18}));
+   outerCore.position.z=z; group.add(outerCore);
+   const innerCore=makeSphere(.18,0xfff2b0,0,0,z,{roughness:.35,emissive:0x774f00,emissiveIntensity:.24});
+   group.add(innerCore);
+   const cut1=new THREE.Mesh(new THREE.RingGeometry(.53,.66,48,1,Math.PI*1.5,Math.PI*.5), new THREE.MeshBasicMaterial({color:0xb9ebff,side:THREE.DoubleSide,transparent:true,opacity:.22}));
+   cut1.position.set(0,0,z+.003); cut1.rotation.y=Math.PI/2; group.add(cut1);
+   const cut2=new THREE.Mesh(new THREE.RingGeometry(.35,.52,48,1,Math.PI*1.5,Math.PI*.5), new THREE.MeshBasicMaterial({color:0xffc78f,side:THREE.DoubleSide,transparent:true,opacity:.22}));
+   cut2.position.set(0,0,z+.002); cut2.rotation.y=Math.PI/2; group.add(cut2);
+   const cut3=new THREE.Mesh(new THREE.RingGeometry(.18,.34,48,1,Math.PI*1.5,Math.PI*.5), new THREE.MeshBasicMaterial({color:0xffef94,side:THREE.DoubleSide,transparent:true,opacity:.22}));
+   cut3.position.set(0,0,z+.001); cut3.rotation.y=Math.PI/2; group.add(cut3);
+   const atmosphere=new THREE.Mesh(new THREE.SphereGeometry(.70,48,28,phiStart,phiLength,0,Math.PI), new THREE.MeshStandardMaterial({color:0x81d9ff,transparent:true,opacity:.12,side:THREE.DoubleSide}));
+   atmosphere.position.z=z; group.add(atmosphere);
+   g.add(group);
+   addLabelSprite('CORTE DE LA TIERRA',0,-.95,z+.08,0.34);
+   const info=new THREE.Group();
+   const lineMat=new THREE.LineBasicMaterial({color:0xdff8ff});
+   function tag(textLabel, from, to, pos){
+     const points=[new THREE.Vector3(...from), new THREE.Vector3(...to)];
+     const geom=new THREE.BufferGeometry().setFromPoints(points);
+     const line=new THREE.Line(geom,lineMat); info.add(line);
+     const c=document.createElement('canvas'); c.width=360; c.height=96; const ctx=c.getContext('2d');
+     ctx.fillStyle='rgba(9,20,39,.88)'; ctx.strokeStyle='rgba(145,225,255,.85)'; ctx.lineWidth=4;
+     ctx.beginPath(); ctx.roundRect?.(6,6,348,84,18); if(!ctx.roundRect){ctx.rect(6,6,348,84)}; ctx.fill(); ctx.stroke();
+     ctx.fillStyle='#f6fbff'; ctx.font='bold 32px Arial'; ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillText(textLabel,180,48);
+     const tex=new THREE.CanvasTexture(c); const spr=new THREE.Sprite(new THREE.SpriteMaterial({map:tex,transparent:true,depthTest:false}));
+     spr.position.set(...pos); spr.scale.set(.86,.23,1); info.add(spr);
+   }
+   tag('Corteza', [.64,.15,z],[1.02,.24,z],[1.32,.26,z]);
+   tag('Manto', [.47,-.02,z],[1.00,-.02,z],[1.26,-.02,z]);
+   tag('Núcleo externo', [.25,-.22,z],[1.00,-.26,z],[1.42,-.28,z]);
+   tag('Núcleo interno', [.05,-.43,z],[1.00,-.50,z],[1.39,-.52,z]);
+   g.add(info);
+ }
+ else {
+   const sys=new THREE.Group();
+   const starGlow=new THREE.Sprite(new THREE.SpriteMaterial({color:0xffefae,transparent:true,opacity:.75,depthWrite:false}));
+   starGlow.position.set(0,0,z); starGlow.scale.set(.65,.65,1); sys.add(starGlow);
+   const sun=makeSphere(.18,0xffc84a,0,0,z,{emissive:0xffa000,emissiveIntensity:.55,roughness:.58});
+   sys.add(sun);
+   const planets=[
+     {name:'Mercurio', r:.028, orbit:.34, color:0xbab6af, speed:1.85},
+     {name:'Venus',    r:.044, orbit:.44, color:0xd9b06a, speed:1.45},
+     {name:'Tierra',   r:.048, orbit:.56, color:0x2e84dd, speed:1.18, earth:true},
+     {name:'Marte',    r:.038, orbit:.67, color:0xc6613a, speed:.96},
+     {name:'Júpiter',  r:.098, orbit:.85, color:0xd2a47a, speed:.58, bands:true},
+     {name:'Saturno',  r:.082, orbit:1.08, color:0xd9c17f, speed:.43, ring:true},
+     {name:'Urano',    r:.062, orbit:1.29, color:0x85d8de, speed:.30},
+     {name:'Neptuno',  r:.060, orbit:1.48, color:0x4d78ea, speed:.22}
+   ];
+   planets.forEach((p,i)=>{
+     const orbit=new THREE.Mesh(new THREE.TorusGeometry(p.orbit,.0035,4,120), new THREE.MeshBasicMaterial({color:0x8fa4c8,transparent:true,opacity:.72}));
+     orbit.position.z=z; orbit.rotation.x=Math.PI/2; sys.add(orbit);
+     const planet=makeSphere(p.r,p.color,p.orbit,0,z,{roughness:.88});
+     planet.userData.orbitRadius=p.orbit; planet.userData.orbitSpeed=p.speed; planet.userData.spin=(i<4?.8:.45); planet.userData.planetName=p.name;
+     if(p.earth){
+       const contMat=new THREE.MeshStandardMaterial({color:0x53b96a,roughness:.98});
+       for(let k=0;k<4;k++){
+         const land=new THREE.Mesh(new THREE.IcosahedronGeometry(p.r*.40,0),contMat);
+         const a=k*1.6, t=.75+k*.45;
+         land.position.set(Math.sin(t)*Math.cos(a)*p.r*.95,Math.cos(t)*p.r*.8,Math.sin(t)*Math.sin(a)*p.r*.95);
+         land.scale.set(1.35,.72,1); planet.add(land);
+       }
+     }
+     if(p.bands){
+       for(let b=0;b<3;b++){
+         const band=new THREE.Mesh(new THREE.TorusGeometry(p.r*(.80-b*.12),.008,5,64),new THREE.MeshBasicMaterial({color:[0xedd1b1,0xc78f63,0x9e6848][b],transparent:true,opacity:.9}));
+         band.rotation.x=Math.PI/2; planet.add(band);
+       }
+     }
+     if(p.ring){
+       const ring=new THREE.Mesh(new THREE.RingGeometry(p.r*1.35,p.r*2.05,80), new THREE.MeshBasicMaterial({color:0xe7ddba,side:THREE.DoubleSide,transparent:true,opacity:.8}));
+       ring.rotation.x=1.15; planet.add(ring);
+     }
+     sys.add(planet);
+   });
+   // estrellas de fondo
+   const stars=new THREE.BufferGeometry(); const starPts=[];
+   for(let i=0;i<120;i++){ const rx=(Math.random()*2-1)*2.1, ry=(Math.random()*2-1)*1.6, rz=z-(Math.random()*1.8+.4); if(Math.hypot(rx,ry)<.28) continue; starPts.push(rx,ry,rz);} 
+   stars.setAttribute('position', new THREE.Float32BufferAttribute(starPts,3));
+   const starField=new THREE.Points(stars, new THREE.PointsMaterial({color:0xffffff,size:.015,sizeAttenuation:true,transparent:true,opacity:.8}));
+   sys.add(starField);
+   g.add(sys);
+   addLabelSprite('SISTEMA SOLAR',0,-1.02,z+.1,0.34);
+ }
 }
 function updateDimensions(){if(!renderer)return;const {w,h}=cssCamSize();renderer.setSize(w,h,false);renderer.domElement.style.width='100%';renderer.domElement.style.height='100%';const scale=Math.max(w/(processingW||640),h/(processingH||480));const f=Math.max(processingW||640,processingH||480)*.95*scale;camera.fov=2*Math.atan(h/(2*f))*180/Math.PI;camera.aspect=w/h;camera.updateProjectionMatrix()}
 // Homografía de un cuadrado plano: coordenadas marcador [0,1] a píxeles.
@@ -164,7 +282,7 @@ function setPose(points){if(!renderer)return;const quad=points.map(displayCoords
 function onFrame(){if(!active||!renderer)return;rafId=requestAnimationFrame(onFrame);const secs=(performance.now()-clockStart)/1000;if(meshRoot){if(activeModel==='earth'){const earth=meshRoot.children[0];if(earth)earth.rotation.y=secs*.25}else if(activeModel==='atom'){meshRoot.rotation.set(.10*Math.sin(secs),.12*Math.sin(secs*.3),secs*.09)}else if(activeModel==='solar'){meshRoot.children.forEach(ch=>{if(ch.userData.orbitRadius){const a=secs*ch.userData.orbitSpeed;ch.position.x=Math.cos(a)*ch.userData.orbitRadius;ch.position.y=Math.sin(a)*ch.userData.orbitRadius}})}else meshRoot.rotation.z=Math.sin(secs*.4)*.12}if(lastDetection&&performance.now()-lastDetection>760){anchor.visible=false;reticle.classList.add('visible')}renderer.render(scene,camera)}
 function scan(){if(!active||!cvReady||inScan)return;inScan=true;try{const pts=findSquare();if(pts){lastCorners=pts;lastDetection=performance.now();setPose(pts);setStatus('Silueta detectada · AR experimental',true);reticle.classList.remove('visible');bottom.textContent='Mueve el cubo despacio. Seguimiento experimental.'}else if(performance.now()-lastDetection>760){lastCorners=null;setStatus('Buscando silueta oscura…');bottom.textContent='Sitúa el cubo sobre un fondo claro y con buena luz.'}}catch(e){notify('El detector ha encontrado un error. Prueba a reiniciar la cámara.',true);console.error(e)}finally{inScan=false;if(active)scanTimer=setTimeout(scan,145)}}
 async function startCam(){if(active)return;if(!navigator.mediaDevices?.getUserMedia){notify('El navegador no permite abrir la cámara en este contexto. Sube index.html a GitHub Pages y ábrelo mediante HTTPS.',true);return}
-start.disabled=true;setStatus('Solicitando permiso…');notify('Chrome puede solicitar permiso de cámara. Pulsa «Permitir».');try{stream=await navigator.mediaDevices.getUserMedia({audio:false,video:{facingMode:{ideal:facing},width:{ideal:960},height:{ideal:720}}});video.srcObject=stream;await video.play();active=true;sourceWidth=video.videoWidth||960;sourceHeight=video.videoHeight||720;processingW=Math.min(360,sourceWidth);processingH=Math.round(processingW*sourceHeight/sourceWidth);videoCanvas.width=processingW;videoCanvas.height=processingH;video.style.visibility='visible';placeholder.style.display='none';flip.disabled=false;stop.disabled=false;start.textContent='● Cámara activa';reticle.classList.add('visible');bottom.textContent='Preparando detector integrado…';setStatus('Cámara encendida');notify('Cámara activa. Cargando el motor 3D…');const results=await Promise.allSettled([loadThree(),loadCv()]);if(!active)return;const fails=results.filter(r=>r.status==='rejected');if(fails.length){notify('La cámara funciona, pero no se pudo preparar el visor 3D: '+fails.map(f=>f.reason?.message||'error').join('; '),true);setStatus('Cámara activa · 3D no disponible');return}updateDimensions();notify('Listo. Apunta al MERGE Cube sobre fondo claro. La detección de la silueta oscura es experimental; no reconoce los símbolos de MERGE.');setStatus('Buscando silueta oscura…');lastDetection=0;smoothedMatrix=null;onFrame();scan()}
+start.disabled=true;setStatus('Solicitando permiso…');notify('Chrome puede solicitar permiso de cámara. Pulsa «Permitir».');try{stream=await navigator.mediaDevices.getUserMedia({audio:false,video:{facingMode:{ideal:facing},width:{ideal:960},height:{ideal:720}}});video.srcObject=stream;await video.play();active=true;sourceWidth=video.videoWidth||960;sourceHeight=video.videoHeight||720;processingW=Math.min(360,sourceWidth);processingH=Math.round(processingW*sourceHeight/sourceWidth);videoCanvas.width=processingW;videoCanvas.height=processingH;video.style.visibility='visible';placeholder.style.display='none';flip.disabled=false;stop.disabled=false;start.textContent='● Cámara activa';reticle.classList.add('visible');bottom.textContent='Preparando detector integrado…';setStatus('Cámara encendida');notify('Cámara activa. Cargando el motor 3D…');const results=await Promise.allSettled([loadThree(),loadCv()]);if(!active)return;const fails=results.filter(r=>r.status==='rejected');if(fails.length){notify('La cámara funciona, pero no se pudo preparar el visor 3D: '+fails.map(f=>f.reason?.message||'error').join('; '),true);setStatus('Cámara activa · 3D no disponible');return}updateDimensions();notify('Listo. Apunta al MERGE Cube sobre fondo claro. El objeto elegido se verá sobre el cubo y podrás girarlo con la mano.');setStatus('Buscando silueta oscura…');lastDetection=0;smoothedMatrix=null;onFrame();scan()}
 catch(e){if(stream){stream.getTracks().forEach(t=>t.stop());stream=null}const d=e.name==='NotAllowedError'?'Acceso a la cámara denegado. Comprueba los permisos de Chrome y que la página esté abierta por HTTPS.':e.name==='NotFoundError'?'No se encuentra una cámara en el dispositivo.':(e.message||String(e));notify(d,true);setStatus('Cámara no disponible');video.style.visibility='hidden';placeholder.style.display='flex'}finally{start.disabled=false}}
 function endCam(){active=false;clearTimeout(scanTimer);cancelAnimationFrame(rafId);if(stream)stream.getTracks().forEach(track=>track.stop());stream=null;video.srcObject=null;video.style.visibility='hidden';placeholder.style.display='flex';flip.disabled=true;stop.disabled=true;start.disabled=false;start.textContent='◉ Iniciar cámara';lastCorners=null;lastDetection=0;smoothedMatrix=null;reticle.classList.remove('visible');if(anchor)anchor.visible=false;setStatus('Cámara apagada');bottom.textContent='No realiza fotos ni guarda vídeos.';notify('Cámara detenida. Puedes iniciarla de nuevo cuando quieras.')}
 start.addEventListener('click',startCam);stop.addEventListener('click',endCam);flip.addEventListener('click',()=>{facing=facing==='environment'?'user':'environment';endCam();startCam()});modelSel.addEventListener('change',()=>{if(threeReady){meshRoot.rotation.set(0,0,0);buildModel(modelSel.value)}});window.addEventListener('resize',()=>{if(threeReady&&active)updateDimensions()});window.addEventListener('pagehide',endCam);
