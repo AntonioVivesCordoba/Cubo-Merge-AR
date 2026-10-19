@@ -17,7 +17,7 @@
     <h1>MERGE Cube · Sistema Solar AR</h1>
     <div class="sub">Sistema solar completo · 1.º ESO</div>
   </div>
-  <span class="chip">V6 · ÓRBITAS</span>
+  <span class="chip">V7 · ÓRBITAS RÁPIDAS</span>
 </header>
 <main>
 <section class="viewer" id="viewer" aria-label="Vista de cámara con sistema solar en realidad aumentada">
@@ -55,14 +55,14 @@
       <div class="rangeEnds"><span>Más juntos</span><span>Más separados</span></div>
     </div>
     <div class="sliderRow">
-      <label for="orbitSpeed">Velocidad general <strong id="speedLabel">Suave (1,0×)</strong></label>
+      <label for="orbitSpeed">Velocidad general <strong id="speedLabel">1×</strong></label>
       <input id="orbitSpeed" type="range" min="0.5" max="2" step="0.25" value="1">
-      <div class="rangeEnds"><span>Muy lenta</span><span>Algo más rápida</span></div>
+      <div class="rangeEnds"><span>½ velocidad</span><span>Doble velocidad</span></div>
     </div>
-    <p id="orbitExplanation" class="orbitExplanation">Órbitas detenidas. Pulsa «Iniciar movimiento» para comenzar.</p>
+    <p id="orbitExplanation" class="orbitExplanation">Órbitas detenidas. A velocidad normal, Mercurio tarda 10 s por vuelta.</p>
     <p class="scaleNote">Las distancias y los tamaños están adaptados para distinguir los planetas: no se representan a escala real.</p>
   </div>
-  <p id="message" class="message" role="status">Versión 6: activa o pausa las órbitas, regula la separación y la velocidad. Las vueltas guardan la proporción de los períodos reales. El sistema solar siempre gira como un conjunto cuando mueves el cubo.</p>
+  <p id="message" class="message" role="status">Versión 7: Mercurio completa una vuelta cada 10 segundos a velocidad normal. Activa o pausa las órbitas, regula la separación y la velocidad. Las vueltas guardan la proporción de los períodos reales. El sistema solar siempre gira como un conjunto cuando mueves el cubo.</p>
   <div class="astroButtonsTitle">Datos rápidos del Sol y los planetas</div>
   <div class="astroButtons" id="astroButtons">
     <button class="sun" type="button" data-astro="Sol">☀️ Sol</button>
@@ -103,7 +103,9 @@ const planetOrbits=[];
 // Periodos de traslación NASA en años terrestres; la escala temporal se acelera
 // por igual para todos, conservando las proporciones reales entre planetas.
 const ORBIT_YEARS={Mercurio:87.97/365.256,Venus:224.7/365.256,Tierra:1,Marte:686.98/365.256,'Júpiter':11.862,'Saturno':29.457,'Urano':84.02,'Neptuno':164.79};
-const SECONDS_PER_EARTH_ORBIT=150;
+// A velocidad 1×, Mercurio completa una órbita cada 10 segundos.
+const SECONDS_PER_MERCURY_ORBIT=10;
+const SECONDS_PER_EARTH_ORBIT=SECONDS_PER_MERCURY_ORBIT/ORBIT_YEARS.Mercurio;
 const astroData={
   'Sol':{type:'Estrella',items:['Masa: 1,989 × 10³⁰ kg','Temperatura superficial: aprox. 5.500 °C','Diámetro: aprox. 1.392.700 km','Traslación: unos 230 millones de años por vuelta alrededor del centro de la Vía Láctea']},
   'Mercurio':{type:'Planeta rocoso',items:['Distancia al Sol: 57,9 millones de km','Rotación: 58,6 días','Traslación: 88 días','Diámetro: 4.879 km','Gravedad: 3,7 m/s²','Dato curioso: no tiene lunas conocidas.']},
@@ -203,9 +205,11 @@ function updateOrbitControls(){
   speedLabel.textContent=`${globalSpeed.toLocaleString('es-ES',{maximumFractionDigits:2})}×`;
   orbitToggle.textContent=orbitEnabled?'Ⅱ Pausar movimiento':'▶ Iniciar movimiento';
   orbitToggle.setAttribute('aria-pressed',String(orbitEnabled));
-  const t=SECONDS_PER_EARTH_ORBIT/globalSpeed;
-  const seconds=t>=60?`${(t/60).toLocaleString('es-ES',{maximumFractionDigits:1})} min`:`${t.toFixed(0)} s`;
-  orbitExplanation.textContent=orbitEnabled?`Órbitas en marcha. La Tierra tarda ${seconds} por vuelta; los demás conservan sus períodos relativos.`:`Órbitas detenidas. A esta velocidad, la Tierra daría una vuelta en ${seconds}.`;
+  const mercurySeconds=SECONDS_PER_MERCURY_ORBIT/globalSpeed;
+  const earthSeconds=SECONDS_PER_EARTH_ORBIT/globalSpeed;
+  const formatDuration=t=>t>=60?`${(t/60).toLocaleString('es-ES',{maximumFractionDigits:1})} min`:`${t.toLocaleString('es-ES',{maximumFractionDigits:1})} s`;
+  const summary=`Mercurio: ${formatDuration(mercurySeconds)} por vuelta · Tierra: ${formatDuration(earthSeconds)} por vuelta.`;
+  orbitExplanation.textContent=(orbitEnabled?'Órbitas en marcha. ':'Órbitas detenidas. ')+summary+' Los demás mantienen la proporción de sus períodos reales.';
   if(planetOrbits.length)updatePlanetPositions();
 }
 function updateDimensions(){if(!renderer)return;const {w,h}=cssCamSize();renderer.setSize(w,h,false);renderer.domElement.style.width='100%';renderer.domElement.style.height='100%';const scale=Math.max(w/(processingW||640),h/(processingH||480));const f=Math.max(processingW||640,processingH||480)*.95*scale;camera.fov=2*Math.atan(h/(2*f))*180/Math.PI;camera.aspect=w/h;camera.updateProjectionMatrix()}
